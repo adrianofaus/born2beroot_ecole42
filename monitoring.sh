@@ -12,7 +12,7 @@ ctcp=$(netstat -an | grep "ESTABLISHED" | wc -l | awk '{if ($1 > 0) {printf "%d 
 ulog=$(who | cut -d " " -f 1 | sort -u | wc -l)
 ipv4=$(hostname -I | awk '{printf "%s ", $1}')
 amac=$(ip a | grep "link/ether" | awk '{printf $2}')
-sudo=$(cat /var/log/sudo/sudo.log | grep -a "COMMAND" | wc -l 'cmd')
+sudo=$(cat /var/log/sudo/sudo.log | grep -a "COMMAND" | wc -l)
 
 wall "\
 #Architecture: $arch
@@ -26,4 +26,4 @@ wall "\
 #Connexions TCP: $ctcp
 #User log: $ulog
 #Network: IP $ipv4 ($amac)
-#Sudo: $sudo"
+#Sudo: $sudo cmd"
