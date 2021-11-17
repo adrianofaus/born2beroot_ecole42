@@ -10,7 +10,8 @@ lboo=$(who -b | cut -d " " -f12-)
 lvmu=$(lsblk | grep "lvm" | awk '{if($1){printf "yes"; exit;} else {prntf "no";}}')
 ctcp=$(netstat -an | grep "ESTABLISHED" | wc -l | awk '{if ($1 > 0) {printf "%d ESTABILISHED\n", $1; exit;} else {printf "no";}}')
 ulog=$(who | cut -d " " -f 1 | sort -u | wc -l)
-ntip=$(hostname -I | awk '{printf "%s ", $1}' "(" ip a | grep "link/ether" | awk '{print $2}' ")")
+ipv4=$(hostname -I | awk '{printf "%s ", $1}')
+amac=$(ip a | grep "link/ether" | awk '{printf $2}')
 sudo=$(cat /var/log/sudo/sudo.log | grep -a "COMMAND" | wc -l 'cmd')
 
 wall "\
@@ -24,5 +25,5 @@ wall "\
 #LVM Use: $lvmu
 #Connexions TCP: $ctcp
 #User log: $ulog
-#Network: IP $ntip
+#Network: IP $ipv4 ($amac)
 #Sudo: $sudo"
